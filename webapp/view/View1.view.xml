@@ -1,0 +1,141 @@
+<!-- <mvc:View controllerName="ranga.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content />
+    </Page>
+</mvc:View> -->
+
+<mvc:View xmlns:core="sap.ui.core" controllerName="ranga.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+    <Page showHeader="false">
+        <content>
+
+
+            <!--  -->
+            <Input width="20%"  value="{AppView>/selectedVH}" showSuggestion="true" showValueHelp="true"   showClearIcon="true"
+			valueHelpRequest="" suggestionItems="{AppView>/vh}">
+                <SuggestionItem text="{AppView>text}" key="{AppView>key}"></SuggestionItem>
+            </Input>
+	<Input
+	 width="20%" id="productInput"
+		
+			placeholder="Enter product"
+			showSuggestion="true"
+			showValueHelp="true"
+			valueHelpRequest=".onValueHelpRequest"
+		suggestionItems="{AppView>/vh}"
+		>
+			 <SuggestionItem text="{AppView>key}" key="{AppView>key}"></SuggestionItem>
+		</Input>
+            <!--  -->
+
+            <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="5" emptySpanL="5" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                <f:content>
+                    <Label />
+                    <SegmentedButton selectedKey="{AppView>/Codetype}">
+                        <items>
+                            <SegmentedButtonItem text="Group Code " key="GC" />
+                            <SegmentedButtonItem text="Customer Code" key="CC" />
+                        </items>
+                    </SegmentedButton>
+                    <!-- Group Code Fields -->
+                    <Label required="true" text="Customer Group Code" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Input value="{AppView>/gc/CustomerGroup}" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Label text="Currency" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Input value="{AppView>/gc/Currency}" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Label text="PCS" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Input value="{AppView>/gc/PricingUnit}" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <Label text="Customer Status" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+
+                    <Select selectedKey="{AppView>/gc/CustomerStatus}" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}">
+                        <core:Item key="N" text="New" />
+                        <core:Item key="E" text="Existing" />
+                    </Select>
+                    <Label required="true" text="Date Range" visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" />
+                    <DateRangeSelection visible="{= ${AppView>/Codetype} === 'GC' ? true : false}" id="idDateRangeG" />
+                    <!-- Customer Code Fields -->
+                    <Label required="true" text="Sales Org" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Input value="{AppView>/cc/SalesOrg}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Label required="true" text="Dist. Channel" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Input value="{AppView>/cc/DistrChannel}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Label required="true" text="Customer Code" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Input value="{AppView>/cc/Customer}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Label text="Currency" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Input value="{AppView>/cc/Currency}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Label text="PCS" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Input value="{AppView>/cc/PricingUnit}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Label required="true" text="Date Range" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <DateRangeSelection visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" id="idDateRangeC" />
+                    <Label text="Customer Status" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}" />
+                    <Select selectedKey="{AppView>/cc/CustomerStatus}" visible="{= ${AppView>/Codetype} === 'CC' ? true : false}">
+                        <core:Item key="N" text="New" />
+                        <core:Item key="E" text="Existing" />
+                    </Select>
+                </f:content>
+            </f:SimpleForm>
+            <Table items="{AppView>/materials}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Materials ({= ${AppView>/materials}.length })" />
+                        <ToolbarSpacer />
+                        <Button text="Add" type="Emphasized" icon="sap-icon://add" press="onAddButtonMatnrPress" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Label text="Material Code" />
+                    </Column>
+
+                    <Column>
+                        <Label text="Material Description" />
+                    </Column>
+                    <Column>
+                        <Label text="Existing Price" />
+                    </Column>
+                    <Column>
+                        <Label text="Revised Price" />
+                    </Column>
+                    <Column>
+                        <Label text="Bottle Weight (in gms)" />
+                    </Column>
+                    <Column>
+                        <Label text="Existing Rezl/MT" />
+                    </Column>
+                    <Column>
+                        <Label text="New Rezl/MT" />
+                    </Column>
+                    <Column>
+                        <Label text="Change in Rezl/MT" />
+                    </Column>
+
+                    <Column width="3rem">
+                        <Label text="" />
+                    </Column>
+                </columns>
+                <ColumnListItem>
+                    <cells>
+                        <Input value="{AppView>Material}" submit="onMaterialInputSubmit" change="onMaterialInputSubmit"/>
+                        <Text text="{AppView>MaterialDescription}"/>
+                        <Input value="{AppView>ExistingPrice}" change="onSubmitBottleWeight" submit="onSubmitBottleWeight"/>
+                        <Input value="{AppView>Amount}" change="onSubmitBottleWeight" submit="onSubmitBottleWeight"/>
+                        <Input value="{AppView>Weight}" change="onSubmitBottleWeight" submit="onSubmitBottleWeight"/>
+                        <Input value="{AppView>ExistingRezl}" editable="false"/>
+                        <Input value="{AppView>NewRezl}" editable="false"/>
+                        <Input value="{AppView>ChangeRezl}" editable="false"/>
+                        <core:Icon color="Negative" src="sap-icon://sys-cancel-2" press="onIconDeleteRowPress" tooltip="Delete Row" />
+                    </cells>
+                </ColumnListItem>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Save" type="Accept" icon="sap-icon://save" press="onSaveButtonPress" />
+                <Button text="Reset" type="Emphasized" icon="sap-icon://synchronize" press="onResetButtonPress" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
